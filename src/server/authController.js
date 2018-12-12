@@ -7,10 +7,10 @@ setInterval(() => {
 }, 1200000)
 
 module.exports = {
-  register = (req, res, next) => {
+  register (req, res, next) {
     //TODO: create username&password in db (public/login table)
   },
-  authenticate = (req, res, next) => {
+  authenticate (req, res, next) {
     //TODO: refactor to lookup from db
     if (req.body.username === 'thewizard' && req.body.password === 'opensesame') {
       
@@ -28,7 +28,7 @@ module.exports = {
       res.header(401).send('unsuccessful login')
     }
   },
-  checkCookie = (req, res, next) => {
+  checkCookie (req, res, next) {
     //TODO: remove one of these
     (req.cookies.token === 'somesecretkey') ? next() : res.header(403).send('Please sign in');
 

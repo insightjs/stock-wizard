@@ -8,7 +8,7 @@ const LoginBox = ({ loginUser }) => {
   // useEffect(() => { });
 
   return (
-    <form onSubmit={e => { e.preventDefault(); loginUser(username, password); }}>
+    <form onSubmit={e => { e.preventDefault(); loginUser(console.log(username, password)) }}>
       {/* <input type='text' placeholder='username' value={value} onChange={e => setUsername(e.target.value)} /> */}
       {/* <input type='text' placeholder='password' value={value} onChange={e => setPassword(e.target.value)} /> */}
       <TextField variant='outlined' placeholder='username' value={value} onChange={e => setUsername(e.target.value)} />;
