@@ -13,7 +13,25 @@ sequelize
 
   const Stocks = sequelize.define('stock', {
     // enter schema here:
-    id: {
-      type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true
+    symbol: {
+      type: Sequelize.STRING
     }
   })
+
+  const Users = sequelize.define('user', {
+    id: {
+      type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true
+    },
+    username: {
+      type: Sequelize.STRING
+    },
+    password: {
+      type: Sequelize.STRING
+    },
+    created_at: {
+      type: Sequelize.DATE
+    }
+  }, {
+    timestamps: false
+  });
+  module.exports = Users;
