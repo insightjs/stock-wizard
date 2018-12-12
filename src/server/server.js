@@ -14,7 +14,8 @@ app.use(cookieParser());
 
 app.listen(8080, () => console.log('Listening on port 8080'));
 
-app.get('/', (req, res,) => res.header(200).sendFile('index.html'))
+// app.get('/test', (req, res,) => res.header(200).sendFile('index.html'))
+app.get('/test', (req, res,) => res.json({msg: 'Routes are working'}))
 
 //TODO: if it's the last middleware, res.header(200) and res.json or res.end()
 app.post('/register', authController.register)
@@ -29,3 +30,5 @@ app.delete('/myStocks', appController.removeStock)
 //compete with friends
 app.get('/rankings', appController.getRankings)
 app.post('/prophesy', appController.submitDraft)
+
+app.use(express.static('../../'))

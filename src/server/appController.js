@@ -1,7 +1,7 @@
 const Stocks = require('../db/StockModel');
 
 const appController = {
-  getStock = (req, res) => {
+  getStock(req, res) {
     Stocks.findOne({ where: {symbol: req.params.symbol} })
     // .findAll()
     .then(response => {
@@ -10,16 +10,16 @@ const appController = {
     .catch((error) => console.log(error))
   },
 
-  followStock = (req, res) => {
+  followStock(req, res) {
   },
 
-  removeStock = (req, res) => {
+  removeStock(req, res) {
   },
 
-  getRankings = (req, res) => {
+  getRankings(req, res) {
   },
 
-  submitDraft = (req, res) => {
+  submitDraft(req, res) {
   }
 }
 
