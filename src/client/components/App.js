@@ -1,8 +1,10 @@
-import '../app.css';
 import React, { useState, useEffect } from 'react';
+import LoginBox from './LoginBox.jsx'
+import '../app.css';
 
 export default function App() {
-  const [count, setCount] = useState(0);
+  const [stocks, setStock] = useState('');
+  const [credentials, setCredentials] = useState({username: '', password: ''});
 
   useEffect(() => {
     document.title = `You clicked ${count} times`;
@@ -10,28 +12,8 @@ export default function App() {
 
   return (
     <div>
-      <h1>You clicked {count} times</h1>
       <button onClick={() => setCount(count + 1)}>Click</button>
+      <LoginBox loginUser={console.log('hey you logged in')}/>
     </div>
   );
 }
-
-// import React, { Component } from 'react';
-
-// export default class App extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       data: [0, 1, 2]
-//     }
-//   }
-
-//   render() {
-//     return(
-//       <div>
-//         <h1>{this.state.data}</h1>
-//       </div>
-//     )
-//   }
-// }
-
