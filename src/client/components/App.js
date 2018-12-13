@@ -1,20 +1,26 @@
 import '../app.css';
 import React, { useState, useEffect } from 'react';
 import LoginBox from './LoginBox.jsx'
+import StockChart from './StockChart.jsx'
 
 export default function App() {
-  const [count, setCount] = useState(0);
-  const [stocks, setStock] = useState('');
-  const [credentials, setCredentials] = useState({username: '', password: ''});
-  useEffect(() => {
-    
-  });
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [symbol, setSymbol] = useState('');
 
-  return (
-    <div>
-      <h1>You clicked {count} times</h1>
-      <button onClick={() => setCount(count + 1)}>Click</button>
-      <LoginBox loginUser={)}/>
-    </div>
-  );
+  useEffect(() => {  });
+
+  if (!loggedIn) {    
+    return (
+      <div>
+        <h1>Welcome to the Stock Wizard</h1>
+        <LoginBox setLoggedIn={setLoggedIn} />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <StockChart symbol={symbol} setSymbol={setSymbol} />
+      </div>
+    )
+  }
 }

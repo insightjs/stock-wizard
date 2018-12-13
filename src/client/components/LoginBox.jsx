@@ -1,19 +1,36 @@
 import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 
-const LoginBox = ({ loginUser }) => {
-  const [username, setUsername] = useState(''); //initialize username state to empty string
+const LoginBox = ({ setLoggedIn }) => {
+  const [username, setUsername] = useState(''); 
   const [password, setPassword] = useState('');
 
-  // useEffect(() => { });
-
   return (
-    <form onSubmit={e => { e.preventDefault(); loginUser(console.log(username, password)) }}>
-      {/* <input type='text' placeholder='username' value={value} onChange={e => setUsername(e.target.value)} /> */}
-      {/* <input type='text' placeholder='password' value={value} onChange={e => setPassword(e.target.value)} /> */}
-      <TextField variant='outlined' placeholder='username' value={value} onChange={e => setUsername(e.target.value)} />;
-      <TextField variant='outlined' placeholder='password' value={value} onChange={e => setPassword(e.target.value)} />;
-    </form>
+    <div id='LoginBox'>
+      <form onSubmit={e => {
+        e.preventDefault(); 
+        fetch('/api/signin', {
+          method: 'POST', 
+          headers: {'Content-Type': 'application/json; charset=utf-8'},
+          body: JSON.stringify({
+            'username': username,
+            'password': password
+          })
+        })
+        .then((res) => res.json())
+        .then((res) => {
+          res.msg === 'login success' ? setLoggedIn(true) : '';          
+          setUsername(''); setPassword('');
+        });
+        
+      }}>
+        <input type='text' placeholder='username' value={username} onChange={e => setUsername(e.target.value)} />
+        <input type='text' placeholder='password' value={password} onChange={e => setPassword(e.target.value)} />
+        <button id='submit-button' value="Submit">submit</button>
+        {/* <TextField variant='outlined' placeholder='username' value={username} onChange={e => setUsername(e.target.value)} />
+        <TextField variant='outlined' placeholder='password' value={password} onChange={e => setPassword(e.target.value)} /> */}
+      </form>
+    </div>
   );
 }
 export default LoginBox;

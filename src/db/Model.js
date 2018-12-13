@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const URI = 'postgres://hckkqjvs:gpvAvyapFgZwAxaYNgKWGu4vN4mpFE7A@pellefant.db.elephantsql.com:5432/hckkqjvs';
+const URI = 'postgres://wldroypb:01Vp2FpkDPYEADTqIuGdado5rlUPBiB8@baasu.db.elephantsql.com:5432/wldroypb';
 const sequelize = new Sequelize(URI);
 
 sequelize
@@ -12,10 +12,20 @@ sequelize
   });
 
   const Stocks = sequelize.define('stock', {
-    // enter schema here:
+    id: {
+      type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true
+    },
     symbol: {
       type: Sequelize.STRING
+    },
+    estimate: {
+      type: Sequelize.STRING
+    },
+    updated_at: {
+      type: Sequelize.DATE
     }
+  }, {
+    timestamps: false
   })
 
   const Users = sequelize.define('user', {
@@ -34,4 +44,7 @@ sequelize
   }, {
     timestamps: false
   });
-  module.exports = Users;
+  module.exports = {
+    Users: Users,
+    Stocks: Stocks
+  } 
