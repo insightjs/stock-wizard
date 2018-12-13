@@ -1,16 +1,16 @@
-const Stocks = require('../db/StockModel');
+const { Stocks } = require('../db/Model');
 
 const appController = {
   getStock(req, res) {
     Stocks.findOne({ where: {symbol: req.params.symbol} })
-    // .findAll()
     .then(response => {
-      res.send(response)
+      response === null ? res.send({dberror: 'no such stock found'}) : res.send(response)
     })
-    .catch((error) => console.log(error))
+    .catch((error) => console.log('getStockError', error))
   },
 
   followStock(req, res) {
+    
   },
 
   removeStock(req, res) {

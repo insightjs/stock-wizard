@@ -1,4 +1,8 @@
-//expire a connection after an hour each 20min
+const { Users } = require('../db/Model');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+//expire a connection after an hour (runs each 20min)
 let connections = {};
 setInterval(() => {
   for (key in connections) {
@@ -7,33 +11,32 @@ setInterval(() => {
 }, 1200000)
 
 module.exports = {
-  register (req, res, next) {
+  register (req, res) {
     //TODO: create username&password in db (public/login table)
   },
-  authenticate (req, res, next) {
-    //TODO: refactor to lookup from db
-    if (req.body.username === 'thewizard' && req.body.password === 'opensesame') {
-      
-      let cookieID = (Math.random()*1000000000)
-      res.cookie('token', 'somesecretkey');
+  authenticate (req, res) {
+    
+    if (req.body.password === 'password') {
+
+      let cookieID = Math.floor((Math.random()*1000000000))
       res.cookie('cookieID', cookieID);
     
       connections[req.body.username] = {
         cookieID: cookieID,
         loginTime: Date.now()
       }
-
-      next();
+      console.log('connections obj', connections)
+      res.header(200).send({msg: 'login success'})
+      // next();
     } else {
-      res.header(401).send('unsuccessful login')
+      console.log('wrong username/password:', req.body.username, req.body.password)
+      res.header(401).send({msg: 'unsuccessful login'})
     }
   },
   checkCookie (req, res, next) {
-    //TODO: remove one of these
-    (req.cookies.token === 'somesecretkey') ? next() : res.header(403).send('Please sign in');
-
     for (key in connections) {
-      (req.cookies.cookieID === obj[key][cookieID]) ? next() : res.header(403).send('Please sign in again');
+      (parseInt(req.cookies.cookieID) === parseInt(connections[key]['cookieID'])) 
+      ? next() : res.header(403).send('Please sign in again');
     }
   }
 }
