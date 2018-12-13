@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 // import TextField from '@material-ui/core/TextField';
 
-const LoginBox = ({ setLoggedIn }) => {
+const RegisterBox = ({ setLoggedIn }) => {
   const [username, setUsername] = useState(''); 
   const [password, setPassword] = useState('');
 
   return (
-    <div id='LoginBox'>
-      <h2>Login</h2>
+    <div id='RegisterBox'>
+      <h2>Register</h2>
       <form onSubmit={e => {
         e.preventDefault(); 
-        fetch('/api/signin', {
+        fetch('/api/register', {
           method: 'POST', 
           headers: {'Content-Type': 'application/json; charset=utf-8'},
           body: JSON.stringify({
@@ -20,7 +20,13 @@ const LoginBox = ({ setLoggedIn }) => {
         })
         .then((res) => res.json())
         .then((res) => {
-          res.msg === 'Login success' ? setLoggedIn(true) : alert('Invalid credentials');
+          if (res.msg === 'Login success') {
+            setLoggedIn(true)
+          } else if (res.msg === 'User already exists') {
+            alert('User already exists');
+          } else {
+            alert('Registration error');
+          }
           setUsername(''); setPassword('');
         });
         
@@ -34,4 +40,4 @@ const LoginBox = ({ setLoggedIn }) => {
     </div>
   );
 }
-export default LoginBox;
+export default RegisterBox;

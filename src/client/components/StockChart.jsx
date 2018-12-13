@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Dumbledore from '../assets/wizard.png'
 
 const StockChart = ({ symbol, setSymbol }) => {
   const [input, handleInput] = useState('');
@@ -29,6 +30,7 @@ const StockChart = ({ symbol, setSymbol }) => {
         <button id='submit-button' value="Submit">submit</button>
       </form>
       <div>{stockData.estimate}</div>
+      <img src = {Dumbledore} />
     </div>
   );
 }

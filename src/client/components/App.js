@@ -1,5 +1,6 @@
 import '../app.css';
 import React, { useState, useEffect } from 'react';
+import RegisterBox from './RegisterBox.jsx'
 import LoginBox from './LoginBox.jsx'
 import StockChart from './StockChart.jsx'
 
@@ -12,7 +13,8 @@ export default function App() {
   if (!loggedIn) {    
     return (
       <div>
-        <h1>Welcome to the Stock Wizard</h1>
+        <h1>Invocate the Wizard</h1>
+        <RegisterBox setLoggedIn={setLoggedIn} />
         <LoginBox setLoggedIn={setLoggedIn} />
       </div>
     );
