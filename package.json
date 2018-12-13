@@ -4,7 +4,6 @@
   "description": "Using ML regression algorithm to predict near-term stock prices on S&P 500",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",
     "start": "npm run build && node src/server/server.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
@@ -16,7 +15,7 @@
     "url": "git+https://github.com/insightjs/stock-wizard.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "insightJS",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/insightjs/stock-wizard/issues"
