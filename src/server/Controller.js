@@ -1,6 +1,9 @@
-const { Users } = require('../db/Model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const pgPromise = require('pg-promise');
+const pgp = pgPromise({ capSQL: true });
+const db = pgp('postgres://hckkqjvs:gpvAvyapFgZwAxaYNgKWGu4vN4mpFE7A@pellefant.db.elephantsql.com:5432/hckkqjvs');
+
 
 //expire a connection after an hour (runs each 20min)
 let connections = {};
@@ -11,20 +14,26 @@ setInterval(() => {
 }, 1200000)
 
 module.exports = {
+  getStock(req, res) {
+    db.any(`SELECT * FROM "public"."predictions" WHERE symbol='${req.params.symbol.toUpperCase()}' LIMIT 1`, [true])
+    .then(data => {
+      data.length === 0 ? res.send({dberror: 'no such stock found'}) : res.send(data)
+    })
+    .catch((err) => console.log('getstockerror', err));
+
+  },
   register (req, res, next) {
-    Users.findOne({ where: { username: req.body.username } })
-    .then(response => {      
-      if (response === null) {
+    // Users.findOne({ where: { username: req.body.username } })
+    db.any(`SELECT * FROM "public"."users" WHERE username='${req.body.username}' LIMIT 1`, [true])
+    .then(response => { 
+      console.log('DB RESPONSE', response)
+      if (response.length===0) {
+        console.log('creating user')
         bcrypt.genSalt(10, function(err, salt) {
           bcrypt.hash(req.body.password, salt, function(err, hash) {
             if (err) {console.log(err); throw err;}
-            Users.create({ 
-              username: req.body.username, 
-              password: hash
-            }).then(user => {
-              console.log('successfully created:', req.body.username)
-              next();
-            })
+            db.any(`INSERT INTO "public"."users" VALUES (DEFAULT, ${req.body.username}, ${hash}, DEFAULT)`, [true])
+            next();
           });
         });
       } else {
@@ -33,9 +42,10 @@ module.exports = {
     })
   },
   authenticate (req, res, next) {
-    Users.findOne({ where: { username: req.body.username } })
+    db.any(`SELECT * FROM "public"."users" WHERE username='${req.body.username}' LIMIT 1`, [true])
     .then(response => {
-      if (response === null) {
+      console.log('DB RESPONSE', response)
+      if (response.length === 0) {
         console.log('no such user');
         res.header(400).send({msg: 'Invalid credentials'});
       } else {

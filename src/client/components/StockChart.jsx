@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Dumbledore from '../assets/wizard.png'
+import PredictionChart from './PredictionChart.jsx';
 
 const StockChart = ({ symbol, setSymbol }) => {
   const [input, handleInput] = useState('');
@@ -9,7 +9,7 @@ const StockChart = ({ symbol, setSymbol }) => {
 
   return (
     <div id='StockChart'>
-      <h1>Stock Chart</h1>
+      <h1>Stock Predictions</h1>
       <h2>Symbol: {symbol}</h2>
       <form onSubmit={e => {
         e.preventDefault(); 
@@ -19,7 +19,7 @@ const StockChart = ({ symbol, setSymbol }) => {
           if (res.dberror == 'no such stock found') {
             alert('no such stock found')
           } else {
-            handleStockData(res)
+            handleStockData(res[0]['predictions'])
             setSymbol(input);
           }
         })
@@ -29,8 +29,9 @@ const StockChart = ({ symbol, setSymbol }) => {
         <input type='text' placeholder='ticker / symbol' value={input} onChange={e => handleInput(e.target.value)} />
         <button id='submit-button' value="Submit">submit</button>
       </form>
-      <div>{stockData.estimate}</div>
-      <img src = {Dumbledore} />
+      
+      <PredictionChart stockData={{stockData}} />
+      
     </div>
   );
 }

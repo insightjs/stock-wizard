@@ -1,30 +1,46 @@
 @import url('https://fonts.googleapis.com/css?family=Bungee+Hairline');
 @import url('https://fonts.googleapis.com/css?family=Shrikhand');
 @import url('https://fonts.googleapis.com/css?family=Supermercado+One');
-@import url('https://fonts.googleapis.com/css?family=Cute+Font');
-@import url('https://fonts.googleapis.com/css?family=Unica+One');
 
 /* https://daneden.github.io/animate.css/ */
 * {
   font-family: Avenir;
   text-align: center;
+  margin: 0;
 }
 #LoginBox {
   margin: 50px;
 }
 #StockChart {
-  margin: 50px;
+  padding: 50px;
+  text-align: center;
+  background-image: url('./assets/bkg1.jpeg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* display: flex; */
 }
 h1 {
+  padding: 30px;
   font-weight: normal;
-  font-family: 'Bungee Hairline', cursive;
-  text-transform: uppercase;
   font-size: 5rem;
+  /* font-family: 'Bungee Hairline', cursive; */
+  /* text-transform: uppercase; */
   /* font-family: 'Shrikhand', cursive;  */
-  /* font-family: 'Supermercado One', cursive; */
-  /* font-family: 'Cute Font', cursive; */
-  /* font-family: 'Unica One', cursive; */
+  font-family: 'Supermercado One', cursive;
+}
+h2 {
+  text-transform: uppercase;
 }
 input[type='text'] {
   /* padding: 20px; */
+  margin: 10px;
+}
+#PredictionChart {
+  height: 50%;
+  width: 50%;
+  margin: 0% 25%;
+  text-align: center;
+  background:rgba(255,255,255,0.65);
 }
