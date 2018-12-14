@@ -2,8 +2,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const appController = require ('./appController');
-const authController = require('./authController');
+const Controller = require ('./Controller');
 
 const app = express();
 
@@ -12,18 +11,19 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.listen(8080, () => console.log('Listening on port 8080'));
+  
+app.post('/api/register', Controller.register, Controller.addCookieJWT)
+app.post('/api/signin', Controller.authenticate, Controller.addCookieJWT)
+app.post('/api/logout', Controller.logout)
 
-app.post('/api/register', authController.register, authController.addCookieJWT)
-app.post('/api/signin', authController.authenticate, authController.addCookieJWT)
-app.post('/api/logout', authController.logout)
+// Controller.checkCookieJWT,
+app.get('/api/stock/:symbol', Controller.getStock)
 
-app.get('/api/stock/:symbol', authController.checkCookieJWT, appController.getStock)
-
-//add stock to dashboard-favorites
-app.post('/api/myStocks', appController.followStock)
-app.delete('/api/myStocks', appController.removeStock)
-//compete with friends
-app.get('/api/rankings', appController.getRankings)
-app.post('/api/prophesy', appController.submitDraft)
+// //add stock to dashboard-favorites
+// app.post('/api/myStocks', Controller.followStock)
+// app.delete('/api/myStocks', Controller.removeStock)
+// //compete with friends
+// app.get('/api/rankings', Controller.getRankings)
+// app.post('/api/prophesy', Controller.submitDraft)
 
 // app.use(express.static('../../'))
