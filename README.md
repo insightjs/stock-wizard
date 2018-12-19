@@ -2,9 +2,9 @@
 Stock Performance Predictor based on ML Algorithm
 
 * In-browser full-stack application built using React Hooks
-* Utilizes robust authentication and authorization
-* House regression algorithm (30-day future perf) on Python server deployed using Flask 
-* Seed SQL database via Yahoo Finance and optimize using SQL clustering
+* Utilized robust authentication and authorization
+* Housed regression algorithm (30-day future perf) on Python server deployed using Flask 
+* Seeded SQL database via Yahoo Finance and optimized using SQL clustering
 
 <p align="center">
   <img src="stock_wizard.gif?raw=true">
