@@ -4,6 +4,10 @@ const pgPromise = require('pg-promise');
 const pgp = pgPromise({ capSQL: true });
 const db = pgp('postgres://hckkqjvs:gpvAvyapFgZwAxaYNgKWGu4vN4mpFE7A@pellefant.db.elephantsql.com:5432/hckkqjvs');
 
+// dbClient.query('SELECT * from attractions', function (err, result) {
+//   if (err) console.log(err);
+//   res.json(result.rows);
+// })
 
 //expire a connection after an hour (runs each 20min)
 let connections = {};
