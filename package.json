@@ -8,7 +8,8 @@
     "start": "npm run build && node src/server/server.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon src/server/server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "seeddatabase": "node src/db/index.js"
   },
   "repository": {
     "type": "git",
@@ -31,7 +32,9 @@
     "pg-promise": "^8.5.3",
     "react": "^16.7.0-alpha.0",
     "react-dom": "^16.7.0-alpha.0",
-    "victory": "^31.0.2"
+    "victory": "^31.0.2",
+    "yahoo-finance": "^0.3.5",
+    "node-timers": "0.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",

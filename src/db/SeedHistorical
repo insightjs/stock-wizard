@@ -1,0 +1,50 @@
+CREATE INDEX symbol_index ON "schemastock"."stockhist" (symbol);
+CLUSTER symbol_index ON "schemastock"."stockhist";
+CLUSTER "schemastock"."stockhist"
+
+**** Clustering Timed Speed Tests ****
+
+Now two sets of identically called before/after queries: 1) Select all MSFT entries; 2) Select AAPL  '2018-01-31' entry :
+
+*BEFORE CLUSTER ALL MSFT*
+_EXPLAIN (ANALYZE, VERBOSE) SELECT * FROM "schemastock"."stockhist" WHERE symbol='MSFT'_
+QUERY PLAN
+Seq Scan on schemastock.stockhist (cost=0.00..3738.39 rows=30 width=60) (actual time=0.020..20.634 rows=20 loops=1)
+Output: id, symbol, date, volume, adjclose, open, high, low, close
+Filter: ((stockhist.symbol)::text = 'MSFT'::text)
+Rows Removed by Filter: 151451
+Planning time: 0.330 ms
+*Execution time: 20.666 ms*
+
+*AFTER CLUSTER ALL MSFT*
+_EXPLAIN (ANALYZE, VERBOSE) SELECT * FROM "schemastock"."stockhist" WHERE symbol='MSFT'_
+QUERY PLAN
+Index Scan using symbol_index on schemastock.stockhist (cost=0.42..76.33 rows=30 width=60) (actual time=0.046..0.053 rows=20 loops=1)
+Output: id, symbol, date, volume, adjclose, open, high, low, close
+Index Cond: ((stockhist.symbol)::text = 'MSFT'::text)
+Planning time: 0.455 ms
+*Execution time: 0.104 ms*
+
+*BEFORE CLUSTER ONE AAPL DATE*
+_EXPLAIN (ANALYZE, VERBOSE) SELECT * FROM "schemastock"."stockhist" WHERE symbol='AAPL' AND date='2018-01-31'_
+QUERY PLAN
+Seq Scan on schemastock.stockhist (cost=0.00..4117.07 rows=1 width=60) (actual time=13.250..20.965 rows=1 loops=1)
+Output: id, symbol, date, volume, adjclose, open, high, low, close
+Filter: (((stockhist.symbol)::text = 'AAPL'::text) AND (stockhist.date = '2018-01-31'::date))
+Rows Removed by Filter: 151470
+Planning time: 0.367 ms
+*Execution time: 20.997 ms*
+
+*AFTER CLUSTER ONE AAPL DATE*
+_EXPLAIN (ANALYZE, VERBOSE) SELECT * FROM "schemastock"."stockhist" WHERE symbol='AAPL' AND date='2018-01-31'_
+QUERY PLAN
+Bitmap Heap Scan on schemastock.stockhist (cost=32.27..1911.53 rows=1 width=60) (actual time=0.270..0.504 rows=1 loops=1)
+Output: id, symbol, date, volume, adjclose, open, high, low, close
+Recheck Cond: ((stockhist.symbol)::text = 'AAPL'::text)
+Filter: (stockhist.date = '2018-01-31'::date)
+Rows Removed by Filter: 1516
+Heap Blocks: exact=20
+-> Bitmap Index Scan on symbol_index (cost=0.00..32.27 rows=1580 width=0) (actual time=0.198..0.198 rows=1517 loops=1)
+Index Cond: ((stockhist.symbol)::text = 'AAPL'::text)
+Planning time: 0.551 ms
+*Execution time: 0.552 ms* (edited) 

@@ -25,10 +25,10 @@ h1 {
   padding: 30px;
   font-weight: normal;
   font-size: 5rem;
-  /* font-family: 'Bungee Hairline', cursive; */
+  font-family: 'Bungee Hairline', cursive;
   /* text-transform: uppercase; */
   /* font-family: 'Shrikhand', cursive;  */
-  font-family: 'Supermercado One', cursive;
+  /* font-family: 'Supermercado One', cursive; */
 }
 h2 {
   text-transform: uppercase;
