@@ -28,13 +28,13 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
+    "node-timers": "0.0.2",
     "pg": "^7.7.1",
     "pg-promise": "^8.5.3",
     "react": "^16.7.0-alpha.0",
     "react-dom": "^16.7.0-alpha.0",
     "victory": "^31.0.2",
-    "yahoo-finance": "^0.3.5",
-    "node-timers": "0.0.2"
+    "yahoo-finance": "^0.3.6"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
@@ -52,6 +52,6 @@
     "url-loader": "^1.1.2",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.14"
   }
 }
